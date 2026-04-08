@@ -5,96 +5,197 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231a73e8'/%3E%3Cpath d='M30 50h40M30 35h40M30 65h40' stroke='white' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231a73e8'/%3E%3Cpath d='M30 50h40M30 35h40M30 65h40' stroke='white' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Deposiciones</title>
+    <title>Control Bio-Senior</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+    
     <style>
-        body { font-family: sans-serif; background: #f0f2f5; padding: 15px; margin: 0; }
-        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-width: 600px; margin: auto; position: relative; }
-        h2, h3 { text-align: center; color: #1a73e8; margin-top: 0; }
+        :root { --blue: #1a73e8; --green: #34a853; --gray: #627690; --red: #ea4335; --light: #f8f9fa; }
+        body { font-family: 'Segoe UI', sans-serif; background: #eaeff2; margin: 0; padding: 10px; }
         
-        label { display: block; margin: 15px 0 5px; font-weight: bold; color: #444; }
-        input, select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; }
-        
-        .grid-tipos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .btn-tipo { 
-            padding: 12px; border: 2px solid #eee; border-radius: 8px; background: #fafafa; 
-            cursor: pointer; font-size: 14px; text-align: center; transition: 0.2s;
+        .card { 
+            background: white; 
+            padding: 15px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            max-width: 600px; 
+            margin: auto; 
+            box-sizing: border-box; 
+            overflow: hidden; 
         }
-        .btn-tipo.active { border-color: #1a73e8; background: #e8f0fe; font-weight: bold; color: #1a73e8; }
-        
-        .btn-save { width: 100%; background: #34a853; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 18px; margin-top: 20px; cursor: pointer; font-weight: bold; }
-        .btn-voice { width: 100%; background: #1a73e8; color: white; border: none; padding: 12px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; }
-        
-        .filtro-section { background: #eef2f7; padding: 15px; border-radius: 8px; margin-top: 25px; border: 1px solid #d1d9e6; }
-        .btn-print { background: #5f6368; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 10px; }
-        
-        .tabla-container { margin-top: 15px; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; background: white; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background: #eee; }
-        
-        .btn-delete { background: #ea4335; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
 
-        /* ESTILO DEL FOOTER (TU NOMBRE) */
-        .footer-autor {
+        .main-title {
             text-align: center;
-            font-size: 11px;
-            color: #888;
-            margin-top: 30px;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
+            color: var(--blue);
+            font-size: 22px;
+            font-weight: bold;
+            margin: 5px 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 8px;
         }
+
+        /* ACORDEÓN DE CONFIGURACIÓN */
+        .collapsible {
+            background-color: var(--light);
+            color: var(--gray);
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ddd;
+            text-align: left;
+            outline: none;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .content-admin {
+            padding: 0 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 15px;
+        }
+
+        .flex-group { display: flex; gap: 5px; margin: 10px 0; }
+        #gestionLista { 
+            max-height: 120px; 
+            overflow-y: auto;  
+            border: 1px solid #eee;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .user-manage-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #f9f9f9;
+            font-size: 13px;
+        }
+
+        /* SECCIÓN DE REGISTRO */
+        h3 { text-align: center; color: var(--blue); margin: 10px 0; font-size: 16px; }
+        label { display: block; margin: 15px 0 5px; font-weight: bold; color: #444; font-size: 14px; }
+        
+        .abc-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; justify-content: center; }
+        .btn-l { padding: 8px 10px; border: 1px solid #ddd; border-radius: 4px; background: white; font-size: 13px; cursor: pointer; min-width: 35px; }
+        .btn-l.active { background: var(--blue); color: white; border-color: var(--blue); }
+        
+        /* Lista de pacientes ajustada */
+        #listaPacientes { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 8px; 
+            max-height: 150px; 
+            overflow-y: auto; 
+            border: 1px solid #eee; 
+            padding: 8px; 
+            background: #fafafa; 
+            border-radius: 8px;
+            min-height: 40px; /* Pequeño espacio visual aunque esté vacío */
+        }
+        #listaPacientes:empty::before {
+            content: "Selecciona una letra arriba...";
+            grid-column: span 2;
+            text-align: center;
+            color: #aaa;
+            font-size: 12px;
+            padding: 10px;
+        }
+
+        .paciente-opt { padding: 10px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; background: #fff; font-size: 13px; text-overflow: ellipsis; overflow: hidden; }
+        .paciente-opt.selected { background: var(--blue); color: white; border-color: var(--blue); font-weight: bold; }
+
+        .grid-opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+        .btn-o { padding: 12px 5px; border: 2px solid #eee; border-radius: 8px; background: #fff; cursor: pointer; font-size: 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .btn-o.active { border-color: var(--blue); background: #e8f0fe; font-weight: bold; }
+
+        .btn-save { width: 100%; background: var(--green); color: white; border: none; padding: 15px; border-radius: 8px; font-size: 16px; margin-top: 20px; cursor: pointer; font-weight: bold; }
+        
+        input[type="text"], input[type="date"], textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+
+        .tabla-scroll { width: 100%; overflow-x: auto; margin-top: 10px; border-radius: 8px; border: 1px solid #eee; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 450px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #eee; }
 
         @media print {
-            .no-print, label, input, .grid-tipos, #status, .btn-save, .btn-voice, .btn-delete { display: none !important; }
-            body { background: white; padding: 0; }
-            .card { box-shadow: none; border: none; width: 100%; max-width: 100%; }
-            .filtro-section { background: none; border: none; padding: 0; }
-            th:last-child, td:last-child { display: none; }
-            h2 { color: black; }
-            .footer-autor { display: block !important; margin-top: 20px; color: #000; }
+            .no-print, .collapsible, .content-admin, .abc-bar, #listaPacientes, .btn-save, hr { display: none !important; }
+            .card { box-shadow: none; border: none; }
         }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="no-print">
-        <h2>Nuevo Registro</h2>
-        <button class="btn-voice" id="btnVoz">🎤 Registrar por Voz</button>
-        <p id="status" style="font-size: 12px; color: #1a73e8; text-align: center; height: 15px;"></p>
+    <div class="main-title">Control Bio-Senior</div>
 
-        <label>Nombre del Anciano</label>
-        <input type="text" id="nombreInput" placeholder="Ej: Pedro García">
-
-        <label>Tipo de Deposición</label>
-        <div class="grid-tipos">
-            <div class="btn-tipo" onclick="seleccionar('Estreñida', this)">🪨Estreñida</div>
-            <div class="btn-tipo" onclick="seleccionar('Normal', this)">🌭Normal</div>
-            <div class="btn-tipo" onclick="seleccionar('Pastosa', this)">💩Pastosa</div>
-            <div class="btn-tipo" onclick="seleccionar('Blanda', this)">☁️Blanda</div>
-            <div class="btn-tipo" onclick="seleccionar('Líquida', this)">💧Líquida</div>
+    <button type="button" class="collapsible no-print">
+        <span>👥 Configuración de Usuarios</span>
+        <span id="arrow">▼</span>
+    </button>
+    <div class="content-admin no-print">
+        <div class="flex-group">
+            <input type="text" id="nuevoNombre" placeholder="Añadir nuevo nombre...">
+            <button onclick="agregarPaciente()" style="background:var(--blue); color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">+</button>
         </div>
-        <button class="btn-save" onclick="guardarDato()">✅ GUARDAR EN MATRIZ</button>
+        <div id="gestionLista"></div>
     </div>
 
-    <div class="filtro-section">
-        <h3>Historial y Reportes</h3>
-        <label class="no-print">Filtrar por día específico:</label>
-        <div style="display: flex; gap: 10px;" class="no-print">
-            <input type="date" id="filtroFecha" onchange="renderTabla()">
-            <button onclick="limpiarFiltro()" style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; cursor: pointer;">Ver Todo</button>
-        </div>
-        
-        <button class="btn-print" onclick="window.print()">🖨️ IMPRIMIR VISTA ACTUAL</button>
+    <div class="no-print">
+        <label>1. Seleccionar Usuario</label>
+        <div class="abc-bar" id="abcBar"></div>
+        <div id="listaPacientes"></div>
 
-        <div class="tabla-container">
-            <table id="tabla">
+        <label>2. Tipo de Deposición</label>
+        <div class="grid-opts">
+            <div class="btn-o" onclick="selectDepo('Normal', this)"><span>🌭</span>Normal</div>
+            <div class="btn-o" onclick="selectDepo('Blanda', this)"><span>☁️</span>Blanda</div>
+            <div class="btn-o" onclick="selectDepo('Pastosa', this)"><span>💩</span>Pastosa</div>
+            <div class="btn-o" onclick="selectDepo('Líquida', this)"><span>💧</span>Líquida</div>
+            <div class="btn-o" onclick="selectDepo('Estreñida', this)"><span>🪨</span>Estreñida</div>
+            <div class="btn-o" onclick="selectDepo('Ninguna', this)"><span>❌</span>Ninguna</div>
+        </div>
+
+        <label>3. Micción (Orina)</label>
+        <div class="grid-opts" id="micSection">
+            <div class="btn-o" id="micSi" onclick="selectMic('Sí', this)">✅ Sí</div>
+            <div class="btn-o" id="micNo" onclick="selectMic('No', this)">❌ No</div>
+        </div>
+
+        <label>4. Observaciones</label>
+        <textarea id="obs" rows="2" placeholder="Notas adicionales..."></textarea>
+
+        <button class="btn-save" onclick="guardar()">💾 GUARDAR REGISTRO</button>
+    </div>
+
+    <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
+
+    <div class="historial-section">
+        <h3>Historial Registrado</h3>
+        <input type="date" id="filtro" onchange="renderTabla()" class="no-print" style="margin-bottom:10px;">
+        
+        <button onclick="window.print()" class="no-print" style="width:100%; padding:12px; cursor:pointer; background: var(--gray); color:white; border:none; border-radius:8px; font-weight:bold;">🖨️ Imprimir Reporte</button>
+        
+        <div class="tabla-scroll">
+            <table>
                 <thead>
                     <tr>
                         <th>Fecha/Hora</th>
-                        <th>Nombre</th>
-                        <th>Tipo</th>
-                        <th class="no-print">Acción</th>
+                        <th>Usuario</th>
+                        <th>Depo</th>
+                        <th>Mic</th>
+                        <th>Obs</th>
+                        <th class="no-print"></th>
                     </tr>
                 </thead>
                 <tbody id="cuerpo"></tbody>
@@ -102,99 +203,170 @@
         </div>
     </div>
 
-    <footer class="footer-autor">
-        Desarrollado por Thais Perruolo &copy; 2026
+    <footer style="text-align:center; font-size:11px; color:#888; margin-top:30px; padding-top:10px; border-top: 1px solid #eee;">
+        Diseñado por Thais Perruolo &copy; 2026
     </footer>
+</div>
 
-</div> <script>
-    let tipoGlobal = "";
-    let baseDatos = JSON.parse(localStorage.getItem('logs')) || [];
+<script>
+    // MANEJO DEL ACORDEÓN
+    const coll = document.querySelector(".collapsible");
+    coll.addEventListener("click", function() {
+        this.classList.toggle("active");
+        const content = this.nextElementSibling;
+        const arrow = document.getElementById("arrow");
+        if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            arrow.innerText = "▼";
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            arrow.innerText = "▲";
+        }
+    });
 
-    renderTabla();
+    let pacientes = JSON.parse(localStorage.getItem('pacientes_lista')) || ["Ejemplo Usuario"];
+    let logs = JSON.parse(localStorage.getItem('logs_enfermeria')) || [];
+    let registroActual = { nombre: "", depo: "", mic: "", obs: "" };
 
-    function seleccionar(valor, elemento) {
-        tipoGlobal = valor;
-        document.querySelectorAll('.btn-tipo').forEach(b => b.classList.remove('active'));
-        elemento.classList.add('active');
+    function agregarPaciente() {
+        const input = document.getElementById('nuevoNombre');
+        const nombre = input.value.trim();
+        if(nombre){
+            if(pacientes.includes(nombre)) { alert("Este usuario ya existe"); return; }
+            pacientes.push(nombre);
+            pacientes.sort();
+            localStorage.setItem('pacientes_lista', JSON.stringify(pacientes));
+            input.value = "";
+            renderGestion();
+            const content = document.querySelector(".content-admin");
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
     }
 
-    function guardarDato() {
-        const nombre = document.getElementById('nombreInput').value.trim();
-        if(!nombre || !tipoGlobal) { alert("⚠️ Completa el nombre y selecciona un tipo."); return; }
+    function eliminarPaciente(nombre) {
+        if(confirm(`¿Eliminar permanentemente a ${nombre}?`)) {
+            pacientes = pacientes.filter(p => p !== nombre);
+            localStorage.setItem('pacientes_lista', JSON.stringify(pacientes));
+            renderGestion();
+            renderPacientes(""); // Limpia la lista de selección si se borra alguien
+        }
+    }
 
-        const ahora = new Date();
-        const registro = { 
-            id: Date.now(),
-            fechaISO: ahora.toISOString().split('T')[0],
-            fechaVisual: ahora.toLocaleDateString('es-ES') + " " + ahora.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'}),
-            nombre: nombre, 
-            tipo: tipoGlobal 
-        };
-        
-        baseDatos.push(registro);
-        localStorage.setItem('logs', JSON.stringify(baseDatos));
-        
-        document.getElementById('nombreInput').value = "";
-        tipoGlobal = "";
-        document.querySelectorAll('.btn-tipo').forEach(b => b.classList.remove('active'));
+    function init() {
+        renderABC();
+        renderPacientes(""); // Se inicia vacío por defecto
+        renderGestion();
         renderTabla();
     }
 
-    function borrarRegistro(id) {
-        if(confirm("¿Seguro que quieres borrar este registro?")) {
-            baseDatos = baseDatos.filter(item => item.id !== id);
-            localStorage.setItem('logs', JSON.stringify(baseDatos));
+    function renderABC() {
+        const bar = document.getElementById('abcBar');
+        bar.innerHTML = "";
+        "ABCDEFGHIJLMNOPQRSTV".split('').forEach(l => {
+            const b = document.createElement('button');
+            b.className = 'btn-l';
+            b.innerText = l;
+            b.onclick = function() {
+                document.querySelectorAll('.btn-l').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                renderPacientes(l);
+            };
+            bar.appendChild(b);
+        });
+    }
+
+    function renderPacientes(letra) {
+        const box = document.getElementById('listaPacientes');
+        box.innerHTML = "";
+        
+        // Si no hay letra seleccionada, no mostramos nada (lista vacía)
+        if(!letra) return;
+
+        const lista = pacientes.filter(p => p.toUpperCase().startsWith(letra));
+        lista.forEach(p => {
+            const div = document.createElement('div');
+            div.className = 'paciente-opt';
+            div.innerText = p;
+            div.onclick = function() {
+                document.querySelectorAll('.paciente-opt').forEach(d => d.classList.remove('selected'));
+                this.classList.add('selected');
+                registroActual.nombre = p;
+            };
+            box.appendChild(div);
+        });
+    }
+
+    function renderGestion() {
+        const div = document.getElementById('gestionLista');
+        div.innerHTML = "";
+        pacientes.forEach(p => {
+            const row = document.createElement('div');
+            row.className = 'user-manage-item';
+            row.innerHTML = `<span>${p}</span><span onclick="eliminarPaciente('${p}')" style="color:var(--red); cursor:pointer; font-weight:bold; padding: 0 5px;">✕</span>`;
+            div.appendChild(row);
+        });
+    }
+
+    function selectDepo(val, el) {
+        registroActual.depo = val;
+        el.parentElement.querySelectorAll('.btn-o').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+        if(val !== "Ninguna") {
+            const btnMicSi = document.getElementById('micSi');
+            selectMic('Sí', btnMicSi);
+        }
+    }
+
+    function selectMic(val, el) {
+        registroActual.mic = val;
+        document.getElementById('micSection').querySelectorAll('.btn-o').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    function guardar() {
+        registroActual.obs = document.getElementById('obs').value;
+        if(!registroActual.nombre || !registroActual.depo || !registroActual.mic) {
+            alert("⚠️ Selecciona usuario y opciones.");
+            return;
+        }
+        const ahora = new Date();
+        const item = {
+            id: Date.now(),
+            fechaISO: ahora.toISOString().split('T')[0],
+            fechaVis: ahora.toLocaleDateString('es-ES') + " " + ahora.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'}),
+            ...registroActual
+        };
+        logs.push(item);
+        localStorage.setItem('logs_enfermeria', JSON.stringify(logs));
+        alert("¡Registro guardado!");
+        location.reload();
+    }
+
+    function borrarLog(id) {
+        if(confirm("¿Borrar este registro del historial?")) {
+            logs = logs.filter(l => l.id !== id);
+            localStorage.setItem('logs_enfermeria', JSON.stringify(logs));
             renderTabla();
         }
     }
 
-    function limpiarFiltro() {
-        document.getElementById('filtroFecha').value = "";
-        renderTabla();
-    }
-
     function renderTabla() {
         const cuerpo = document.getElementById('cuerpo');
-        const filtro = document.getElementById('filtroFecha').value;
+        const f = document.getElementById('filtro').value;
         cuerpo.innerHTML = "";
-        
-        let datosAMostrar = baseDatos;
-        if(filtro) {
-            datosAMostrar = baseDatos.filter(item => item.fechaISO === filtro);
-        }
-
-        [...datosAMostrar].reverse().forEach(item => {
-            const fila = document.createElement('tr');
-            fila.innerHTML = `
-                <td>${item.fechaVisual}</td>
-                <td>${item.nombre}</td>
-                <td>${item.tipo}</td>
-                <td class="no-print"><button class="btn-delete" onclick="borrarRegistro(${item.id})">✕</button></td>
-            `;
-            cuerpo.appendChild(fila);
+        let data = f ? logs.filter(l => l.fechaISO === f) : logs;
+        data.reverse().forEach(l => {
+            cuerpo.innerHTML += `<tr>
+                <td>${l.fechaVis}</td>
+                <td><b>${l.nombre}</b></td>
+                <td>${l.depo}</td>
+                <td>${l.mic}</td>
+                <td style="max-width: 120px; overflow-wrap: break-word;">${l.obs}</td>
+                <td class="no-print"><button onclick="borrarLog(${l.id})" style="border:none; background:none; color:var(--red); cursor:pointer;">✕</button></td>
+            </tr>`;
         });
     }
-
-    // VOZ
-    if ('webkitSpeechRecognition' in window) {
-        const recognition = new webkitSpeechRecognition();
-        recognition.lang = 'es-ES';
-        document.getElementById('btnVoz').onclick = () => { 
-            recognition.start(); 
-            document.getElementById('status').innerText = "Escuchando... Di: Nombre + Tipo"; 
-        };
-        recognition.onresult = (e) => {
-            const frase = e.results[0][0].transcript.toLowerCase();
-            const opciones = ['normal', 'blanda', 'pastosa', 'líquida', 'estreñida'];
-            let encontrado = opciones.find(t => frase.includes(t));
-            if(encontrado) {
-                document.getElementById('nombreInput').value = frase.replace(encontrado, "").replace("tipo", "").trim().toUpperCase();
-                const botones = document.querySelectorAll('.btn-tipo');
-                botones.forEach(b => { if(b.innerText.toLowerCase() === encontrado) seleccionar(b.innerText, b); });
-            }
-            document.getElementById('status').innerText = "";
-        };
-    }
+    init();
 </script>
 </body>
 </html>
