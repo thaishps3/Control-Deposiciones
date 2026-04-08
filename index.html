@@ -18,8 +18,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
             max-width: 600px; 
             margin: auto; 
-            box-sizing: border-box; 
-            overflow: hidden; 
         }
 
         .main-title {
@@ -29,11 +27,11 @@
             font-weight: bold;
             margin: 5px 0 15px 0;
             text-transform: uppercase;
-            letter-spacing: 1px;
             border-bottom: 2px solid var(--light);
             padding-bottom: 8px;
         }
 
+        /* CONFIGURACIÓN */
         .collapsible {
             background-color: var(--light);
             color: var(--gray);
@@ -42,150 +40,114 @@
             width: 100%;
             border: 1px solid #ddd;
             text-align: left;
-            outline: none;
             font-size: 14px;
             font-weight: bold;
             border-radius: 8px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             margin-bottom: 5px;
         }
 
         .content-admin {
-            padding: 0 10px;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
-            background-color: white;
-            border-radius: 0 0 8px 8px;
-            margin-bottom: 15px;
         }
 
-        .flex-group { display: flex; gap: 5px; margin: 10px 0; }
-        
-        /* AJUSTE INPUTS MÓVIL */
-        input[type="text"], 
-        input[type="date"], 
-        textarea { 
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #ccc; 
-            border-radius: 6px; 
-            box-sizing: border-box; 
-            font-size: 16px; 
-            appearance: none; /* Quita estilos por defecto de iOS */
-            -webkit-appearance: none;
-            background-color: white;
-            color: #333;
-            min-height: 45px; /* Asegura que el texto dd/mm/aaaa quepa */
-        }
-
-        /* Estilo específico para asegurar que el placeholder de fecha se vea */
-        input[type="date"]::before {
-            color: #999;
-            content: attr(placeholder);
-        }
-
-        #gestionLista { 
-            max-height: 120px; 
-            overflow-y: auto;  
-            border: 1px solid #eee;
-            border-radius: 6px;
-            margin-bottom: 10px;
-        }
-
-        .user-manage-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px;
-            border-bottom: 1px solid #f9f9f9;
-            font-size: 13px;
-        }
-
-        h3 { text-align: center; color: var(--blue); margin: 15px 0 10px; font-size: 16px; }
+        /* REGISTRO */
         label { display: block; margin: 15px 0 5px; font-weight: bold; color: #444; font-size: 14px; }
-        
         .abc-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; justify-content: center; }
-        .btn-l { padding: 8px 10px; border: 1px solid #ddd; border-radius: 4px; background: white; font-size: 13px; cursor: pointer; min-width: 35px; }
-        .btn-l.active { background: var(--blue); color: white; border-color: var(--blue); }
+        .btn-l { padding: 8px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; min-width: 35px; }
+        .btn-l.active { background: var(--blue); color: white; }
         
-        #listaPacientes { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 8px; 
-            max-height: 150px; 
-            overflow-y: auto; 
-            border: 1px solid #eee; 
-            padding: 8px; 
-            background: #fafafa; 
-            border-radius: 8px;
-            min-height: 45px;
+        #listaUsuarios { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px; 
+            max-height: 120px; overflow-y: auto; border: 1px solid #eee; 
+            padding: 8px; background: #fafafa; border-radius: 8px;
         }
 
-        #listaPacientes:empty::before {
-            content: "Selecciona una letra arriba...";
-            grid-column: span 2;
-            text-align: center;
-            color: #aaa;
-            font-size: 12px;
-            padding: 10px;
-        }
-
-        .paciente-opt { padding: 12px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; background: #fff; font-size: 13px; }
-        .paciente-opt.selected { background: var(--blue); color: white; border-color: var(--blue); font-weight: bold; }
+        .usuario-opt { padding: 10px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; background: #fff; font-size: 13px; }
+        .usuario-opt.selected { background: var(--blue); color: white; font-weight: bold; }
 
         .grid-opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-        .btn-o { padding: 12px 5px; border: 2px solid #eee; border-radius: 8px; background: #fff; cursor: pointer; font-size: 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .btn-o { padding: 12px 5px; border: 2px solid #eee; border-radius: 8px; background: #fff; cursor: pointer; font-size: 12px; text-align: center; }
         .btn-o.active { border-color: var(--blue); background: #e8f0fe; font-weight: bold; }
 
         .btn-save { width: 100%; background: var(--green); color: white; border: none; padding: 15px; border-radius: 8px; font-size: 16px; margin-top: 20px; cursor: pointer; font-weight: bold; }
         
-        .tabla-scroll { width: 100%; overflow-x: auto; margin-top: 10px; border-radius: 8px; border: 1px solid #eee; }
+        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; background: white; }
+
+        /* HISTORIAL */
+        .filtros-historial { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        .tabla-scroll { width: 100%; max-height: 400px; overflow-y: auto; margin-top: 10px; border: 1px solid #eee; border-radius: 8px; }
         table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 480px; }
-        th, td { border: 1px solid #ddd; padding: 10px 8px; text-align: left; }
-        th { background: #eee; }
+        th { position: sticky; top: 0; background: #f2f2f2; padding: 10px; z-index: 5; }
+        td { border: 1px solid #ddd; padding: 10px 8px; text-align: left; }
+
+        footer { 
+            text-align: center; 
+            font-size: 11px; 
+            color: #888; 
+            margin-top: 30px; 
+            padding-top: 10px; 
+            border-top: 1px solid #eee; 
+            font-weight: bold;
+        }
+
+        /* IMPRESIÓN */
+        #print-header { display: none; }
 
         @media print {
-            .no-print, .collapsible, .content-admin, .abc-bar, #listaPacientes, .btn-save, hr { display: none !important; }
-            .card { box-shadow: none; border: none; }
+            body { background: white; padding: 0; }
+            .no-print, .collapsible, .content-admin, .abc-bar, #listaUsuarios, .btn-save, hr { display: none !important; }
+            .card { box-shadow: none; border: none; width: 100%; max-width: 100%; }
+            .tabla-scroll { max-height: none; overflow: visible; }
+            #print-header { display: block; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #333; padding-bottom: 10px; }
+            footer { color: #333; border-top: 1px solid #333; }
         }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="main-title">Control Bio-Senior</div>
+    <div id="print-header">
+        <h1 style="margin:0;">Reporte de Control Bio-Senior</h1>
+        <p id="print-date-sub"></p>
+        <p id="print-user-sub"></p>
+    </div>
+
+    <div class="main-title no-print">Control Bio-Senior</div>
 
     <button type="button" class="collapsible no-print">
-        <span>👥 Configuración de Usuarios</span>
+        <span>👥 Gestión de Usuarios</span>
         <span id="arrow">▼</span>
     </button>
     <div class="content-admin no-print">
-        <div class="flex-group">
-            <input type="text" id="nuevoNombre" placeholder="Nombre completo...">
-            <button onclick="agregarPaciente()" style="background:var(--blue); color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">+</button>
+        <div style="padding:10px;">
+            <div style="display:flex; gap:5px; margin-bottom:10px;">
+                <input type="text" id="nuevoNombre" placeholder="Nombre del usuario...">
+                <button onclick="agregarUsuario()" style="background:var(--blue); color:white; border:none; padding:10px; border-radius:6px;">+</button>
+            </div>
+            <div id="gestionLista" style="max-height:100px; overflow-y:auto; font-size:12px; border:1px solid #eee; padding:5px;"></div>
         </div>
-        <div id="gestionLista"></div>
     </div>
 
     <div class="no-print">
         <label>1. Seleccionar Usuario</label>
         <div class="abc-bar" id="abcBar"></div>
-        <div id="listaPacientes"></div>
+        <div id="listaUsuarios"></div>
 
         <label>2. Tipo de Deposición</label>
-        <div class="grid-opts">
-            <div class="btn-o" onclick="selectDepo('Normal', this)"><span>🌭</span>Normal</div>
-            <div class="btn-o" onclick="selectDepo('Blanda', this)"><span>☁️</span>Blanda</div>
-            <div class="btn-o" onclick="selectDepo('Pastosa', this)"><span>💩</span>Pastosa</div>
-            <div class="btn-o" onclick="selectDepo('Líquida', this)"><span>💧</span>Líquida</div>
-            <div class="btn-o" onclick="selectDepo('Estreñida', this)"><span>🪨</span>Estreñida</div>
-            <div class="btn-o" onclick="selectDepo('Ninguna', this)"><span>❌</span>Ninguna</div>
+        <div class="grid-opts" id="depoSection">
+            <div class="btn-o" onclick="selectDepo('Normal', this)">🌭Normal</div>
+            <div class="btn-o" onclick="selectDepo('Blanda', this)">☁️Blanda</div>
+            <div class="btn-o" onclick="selectDepo('Pastosa', this)">💩Pastosa</div>
+            <div class="btn-o" onclick="selectDepo('Líquida', this)">💧Líquida</div>
+            <div class="btn-o" onclick="selectDepo('Estreñida', this)">🪨Estreñida</div>
+            <div class="btn-o" onclick="selectDepo('No', this)">❌No</div>
         </div>
 
-        <label>3. Micción (Orina)</label>
+        <label>3. Micción</label>
         <div class="grid-opts" id="micSection">
             <div class="btn-o" id="micSi" onclick="selectMic('Sí', this)">✅ Sí</div>
             <div class="btn-o" id="micNo" onclick="selectMic('No', this)">❌ No</div>
@@ -197,20 +159,31 @@
         <button class="btn-save" onclick="guardar()">💾 GUARDAR REGISTRO</button>
     </div>
 
-    <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
+    <hr class="no-print" style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
 
     <div class="historial-section">
-        <h3>Historial Registrado</h3>
-        <label class="no-print" style="font-size: 11px; color: var(--gray); margin-bottom: 2px;">Filtrar por fecha:</label>
-        <input type="date" id="filtro" onchange="renderTabla()" class="no-print" style="margin-bottom:10px;">
+        <h3 style="font-size:16px; color:var(--blue); margin-bottom:10px;">Historial de Registros</h3>
         
-        <button onclick="window.print()" class="no-print" style="width:100%; padding:12px; cursor:pointer; background: var(--gray); color:white; border:none; border-radius:8px; font-weight:bold;">🖨️ Imprimir Reporte</button>
+        <div class="no-print filtros-historial">
+            <div>
+                <label style="margin-top:0; font-size:11px;">Fecha:</label>
+                <input type="date" id="filtro" onchange="renderTabla()">
+            </div>
+            <div>
+                <label style="margin-top:0; font-size:11px;">Usuario:</label>
+                <select id="filtroUsuario" onchange="renderTabla()">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+        
+        <button onclick="prepararImpresion()" class="no-print" style="width:100%; padding:12px; cursor:pointer; background: var(--gray); color:white; border:none; border-radius:8px; font-weight:bold; margin-bottom:10px;">🖨️ Imprimir Reporte</button>
         
         <div class="tabla-scroll">
             <table>
                 <thead>
                     <tr>
-                        <th>Fecha/Hora</th>
+                        <th>Fecha y Hora</th>
                         <th>Usuario</th>
                         <th>Depo</th>
                         <th>Mic</th>
@@ -223,166 +196,165 @@
         </div>
     </div>
 
-    <footer style="text-align:center; font-size:11px; color:#888; margin-top:30px; padding-top:10px; border-top: 1px solid #eee;">
+    <footer>
         Diseñado por Thais Perruolo &copy; 2026
     </footer>
 </div>
 
 <script>
-    const coll = document.querySelector(".collapsible");
-    coll.addEventListener("click", function() {
-        this.classList.toggle("active");
-        const content = this.nextElementSibling;
-        const arrow = document.getElementById("arrow");
-        if (content.style.maxHeight){
-            content.style.maxHeight = null;
-            arrow.innerText = "▼";
-        } else {
-            content.style.maxHeight = content.scrollHeight + "px";
-            arrow.innerText = "▲";
-        }
-    });
-
-    let pacientes = JSON.parse(localStorage.getItem('pacientes_lista')) || ["Ejemplo Usuario"];
+    let usuarios = JSON.parse(localStorage.getItem('pacientes_lista')) || ["Ejemplo"];
     let logs = JSON.parse(localStorage.getItem('logs_enfermeria')) || [];
     let registroActual = { nombre: "", depo: "", mic: "", obs: "" };
+    let letraActiva = "";
 
-    function agregarPaciente() {
-        const input = document.getElementById('nuevoNombre');
-        const nombre = input.value.trim();
-        if(nombre){
-            if(pacientes.includes(nombre)) { alert("Este usuario ya existe"); return; }
-            pacientes.push(nombre);
-            pacientes.sort();
-            localStorage.setItem('pacientes_lista', JSON.stringify(pacientes));
-            input.value = "";
-            renderGestion();
-            const content = document.querySelector(".content-admin");
-            content.style.maxHeight = content.scrollHeight + "px";
-        }
-    }
-
-    function eliminarPaciente(nombre) {
-        if(confirm(`¿Eliminar permanentemente a ${nombre}?`)) {
-            pacientes = pacientes.filter(p => p !== nombre);
-            localStorage.setItem('pacientes_lista', JSON.stringify(pacientes));
-            renderGestion();
-            renderPacientes("");
-        }
-    }
-
-    function init() {
+    window.onload = () => {
+        const hoy = new Date().toISOString().split('T')[0];
+        document.getElementById('filtro').value = hoy;
         renderABC();
-        renderPacientes(""); 
         renderGestion();
+        actualizarSelectUsuarios();
         renderTabla();
+    };
+
+    function prepararImpresion() {
+        const fF = document.getElementById('filtro').value;
+        const fU = document.getElementById('filtroUsuario').value;
+        document.getElementById('print-date-sub').innerText = fF ? "Fecha: " + new Date(fF).toLocaleDateString() : "Historial Completo";
+        document.getElementById('print-user-sub').innerText = fU ? "Usuario: " + fU : "Todos los usuarios";
+        window.print();
     }
+
+    function actualizarSelectUsuarios() {
+        const select = document.getElementById('filtroUsuario');
+        const valAnterior = select.value;
+        select.innerHTML = '<option value="">Todos</option>';
+        usuarios.forEach(p => {
+            const opt = document.createElement('option');
+            opt.value = p; opt.innerText = p;
+            select.appendChild(opt);
+        });
+        select.value = valAnterior;
+    }
+
+    document.querySelector(".collapsible").addEventListener("click", function() {
+        this.classList.toggle("active");
+        const content = this.nextElementSibling;
+        content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+        document.getElementById("arrow").innerText = content.style.maxHeight ? "▲" : "▼";
+    });
 
     function renderABC() {
         const bar = document.getElementById('abcBar');
         bar.innerHTML = "";
         "ABCDEFGHIJLMNOPQRSTV".split('').forEach(l => {
             const b = document.createElement('button');
-            b.className = 'btn-l';
+            b.className = 'btn-l' + (letraActiva === l ? ' active' : '');
             b.innerText = l;
-            b.onclick = function() {
-                document.querySelectorAll('.btn-l').forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                renderPacientes(l);
-            };
+            b.onclick = () => { letraActiva = l; renderABC(); renderUsuarios(l); };
             bar.appendChild(b);
         });
     }
 
-    function renderPacientes(letra) {
-        const box = document.getElementById('listaPacientes');
+    function renderUsuarios(letra) {
+        const box = document.getElementById('listaUsuarios');
         box.innerHTML = "";
-        if(!letra) return;
-        const lista = pacientes.filter(p => p.toUpperCase().startsWith(letra));
-        lista.forEach(p => {
+        usuarios.filter(p => p.toUpperCase().startsWith(letra)).forEach(p => {
             const div = document.createElement('div');
-            div.className = 'paciente-opt';
+            div.className = 'usuario-opt' + (registroActual.nombre === p ? ' selected' : '');
             div.innerText = p;
-            div.onclick = function() {
-                document.querySelectorAll('.paciente-opt').forEach(d => d.classList.remove('selected'));
-                this.classList.add('selected');
-                registroActual.nombre = p;
+            div.onclick = () => { 
+                registroActual.nombre = p; 
+                document.querySelectorAll('.usuario-opt').forEach(d => d.classList.remove('selected'));
+                div.classList.add('selected');
             };
             box.appendChild(div);
         });
     }
 
     function renderGestion() {
-        const div = document.getElementById('gestionLista');
-        div.innerHTML = "";
-        pacientes.forEach(p => {
-            const row = document.createElement('div');
-            row.className = 'user-manage-item';
-            row.innerHTML = `<span>${p}</span><span onclick="eliminarPaciente('${p}')" style="color:var(--red); cursor:pointer; font-weight:bold; padding: 0 5px;">✕</span>`;
-            div.appendChild(row);
-        });
+        document.getElementById('gestionLista').innerHTML = usuarios.map(p => `
+            <div style="display:flex; justify-content:space-between; padding:5px; border-bottom:1px solid #eee;">
+                ${p} <span onclick="eliminarUsuario('${p}')" style="color:red; cursor:pointer;">✕</span>
+            </div>`).join("");
+        actualizarSelectUsuarios();
     }
 
-    function selectDepo(val, el) {
-        registroActual.depo = val;
-        el.parentElement.querySelectorAll('.btn-o').forEach(b => b.classList.remove('active'));
-        el.classList.add('active');
-        if(val !== "Ninguna") {
-            const btnMicSi = document.getElementById('micSi');
-            selectMic('Sí', btnMicSi);
+    function agregarUsuario() {
+        const n = document.getElementById('nuevoNombre').value.trim();
+        if(n && !usuarios.includes(n)){
+            usuarios.push(n); usuarios.sort();
+            localStorage.setItem('pacientes_lista', JSON.stringify(usuarios));
+            document.getElementById('nuevoNombre').value = "";
+            renderGestion();
         }
     }
 
-    function selectMic(val, el) {
-        registroActual.mic = val;
-        document.getElementById('micSection').querySelectorAll('.btn-o').forEach(b => b.classList.remove('active'));
+    function eliminarUsuario(n) {
+        if(confirm(`¿Eliminar a ${n}?`)){
+            usuarios = usuarios.filter(p => p !== n);
+            localStorage.setItem('pacientes_lista', JSON.stringify(usuarios));
+            renderGestion();
+        }
+    }
+
+    function selectDepo(v, el) {
+        registroActual.depo = v;
+        document.querySelectorAll('#depoSection .btn-o').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+        if(v !== "No") selectMic('Sí', document.getElementById('micSi'));
+    }
+
+    function selectMic(v, el) {
+        registroActual.mic = v;
+        document.querySelectorAll('#micSection .btn-o').forEach(b => b.classList.remove('active'));
         el.classList.add('active');
     }
 
     function guardar() {
-        registroActual.obs = document.getElementById('obs').value;
-        if(!registroActual.nombre || !registroActual.depo || !registroActual.mic) {
-            alert("⚠️ Selecciona usuario y opciones.");
-            return;
-        }
+        if(!registroActual.nombre || !registroActual.depo || !registroActual.mic) return alert("⚠️ Selecciona Usuario");
         const ahora = new Date();
-        const item = {
+        logs.push({
             id: Date.now(),
             fechaISO: ahora.toISOString().split('T')[0],
-            fechaVis: ahora.toLocaleDateString('es-ES') + " " + ahora.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'}),
-            ...registroActual
-        };
-        logs.push(item);
+            fechaFull: ahora.toLocaleDateString('es-ES') + " " + ahora.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'}),
+            nombre: registroActual.nombre,
+            depo: registroActual.depo,
+            mic: registroActual.mic,
+            obs: document.getElementById('obs').value
+        });
         localStorage.setItem('logs_enfermeria', JSON.stringify(logs));
-        alert("¡Registro guardado!");
-        location.reload();
+        registroActual.nombre = ""; registroActual.depo = ""; registroActual.mic = "";
+        document.getElementById('obs').value = "";
+        document.querySelectorAll('.btn-o').forEach(b => b.classList.remove('active'));
+        renderUsuarios(letraActiva);
+        renderTabla();
+        alert("✅ Guardado");
     }
 
     function borrarLog(id) {
-        if(confirm("¿Borrar este registro?")) {
-            logs = logs.filter(l => l.id !== id);
-            localStorage.setItem('logs_enfermeria', JSON.stringify(logs));
-            renderTabla();
-        }
+        if(confirm("¿Borrar registro?")) { logs = logs.filter(l => l.id !== id); localStorage.setItem('logs_enfermeria', JSON.stringify(logs)); renderTabla(); }
     }
 
     function renderTabla() {
         const cuerpo = document.getElementById('cuerpo');
-        const f = document.getElementById('filtro').value;
+        const fF = document.getElementById('filtro').value;
+        const fU = document.getElementById('filtroUsuario').value;
         cuerpo.innerHTML = "";
-        let data = f ? logs.filter(l => l.fechaISO === f) : logs;
-        data.reverse().forEach(l => {
+        logs.filter(l => {
+            const mF = fF ? l.fechaISO === fF : true;
+            const mU = fU ? l.nombre === fU : true;
+            return mF && mU;
+        }).slice().reverse().forEach(l => {
             cuerpo.innerHTML += `<tr>
-                <td>${l.fechaVis}</td>
+                <td>${l.fechaFull || l.fechaVis}</td>
                 <td><b>${l.nombre}</b></td>
                 <td>${l.depo}</td>
                 <td>${l.mic}</td>
-                <td style="max-width: 120px; overflow-wrap: break-word;">${l.obs}</td>
-                <td class="no-print"><button onclick="borrarLog(${l.id})" style="border:none; background:none; color:var(--red); cursor:pointer; font-size:16px;">✕</button></td>
+                <td style="max-width: 120px; overflow-wrap: break-word;">${l.obs || ""}</td>
+                <td class="no-print"><button onclick="borrarLog(${l.id})" style="border:none; background:none; color:red; cursor:pointer;">✕</button></td>
             </tr>`;
         });
     }
-    init();
 </script>
 </body>
 </html>
