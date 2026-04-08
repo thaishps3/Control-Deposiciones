@@ -2,8 +2,6 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231a73e8'/%3E%3Cpath d='M30 50h40M30 35h40M30 65h40' stroke='white' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231a73e8'/%3E%3Cpath d='M30 50h40M30 35h40M30 65h40' stroke='white' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control Bio-Senior</title>
     
@@ -36,12 +34,11 @@
             padding-bottom: 8px;
         }
 
-        /* ACORDEÓN DE CONFIGURACIÓN */
         .collapsible {
             background-color: var(--light);
             color: var(--gray);
             cursor: pointer;
-            padding: 10px;
+            padding: 12px;
             width: 100%;
             border: 1px solid #ddd;
             text-align: left;
@@ -66,6 +63,30 @@
         }
 
         .flex-group { display: flex; gap: 5px; margin: 10px 0; }
+        
+        /* AJUSTE INPUTS MÓVIL */
+        input[type="text"], 
+        input[type="date"], 
+        textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            font-size: 16px; 
+            appearance: none; /* Quita estilos por defecto de iOS */
+            -webkit-appearance: none;
+            background-color: white;
+            color: #333;
+            min-height: 45px; /* Asegura que el texto dd/mm/aaaa quepa */
+        }
+
+        /* Estilo específico para asegurar que el placeholder de fecha se vea */
+        input[type="date"]::before {
+            color: #999;
+            content: attr(placeholder);
+        }
+
         #gestionLista { 
             max-height: 120px; 
             overflow-y: auto;  
@@ -73,6 +94,7 @@
             border-radius: 6px;
             margin-bottom: 10px;
         }
+
         .user-manage-item {
             display: flex;
             justify-content: space-between;
@@ -82,15 +104,13 @@
             font-size: 13px;
         }
 
-        /* SECCIÓN DE REGISTRO */
-        h3 { text-align: center; color: var(--blue); margin: 10px 0; font-size: 16px; }
+        h3 { text-align: center; color: var(--blue); margin: 15px 0 10px; font-size: 16px; }
         label { display: block; margin: 15px 0 5px; font-weight: bold; color: #444; font-size: 14px; }
         
         .abc-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; justify-content: center; }
         .btn-l { padding: 8px 10px; border: 1px solid #ddd; border-radius: 4px; background: white; font-size: 13px; cursor: pointer; min-width: 35px; }
         .btn-l.active { background: var(--blue); color: white; border-color: var(--blue); }
         
-        /* Lista de pacientes ajustada */
         #listaPacientes { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
@@ -101,8 +121,9 @@
             padding: 8px; 
             background: #fafafa; 
             border-radius: 8px;
-            min-height: 40px; /* Pequeño espacio visual aunque esté vacío */
+            min-height: 45px;
         }
+
         #listaPacientes:empty::before {
             content: "Selecciona una letra arriba...";
             grid-column: span 2;
@@ -112,7 +133,7 @@
             padding: 10px;
         }
 
-        .paciente-opt { padding: 10px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; background: #fff; font-size: 13px; text-overflow: ellipsis; overflow: hidden; }
+        .paciente-opt { padding: 12px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; background: #fff; font-size: 13px; }
         .paciente-opt.selected { background: var(--blue); color: white; border-color: var(--blue); font-weight: bold; }
 
         .grid-opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
@@ -121,11 +142,9 @@
 
         .btn-save { width: 100%; background: var(--green); color: white; border: none; padding: 15px; border-radius: 8px; font-size: 16px; margin-top: 20px; cursor: pointer; font-weight: bold; }
         
-        input[type="text"], input[type="date"], textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
-
         .tabla-scroll { width: 100%; overflow-x: auto; margin-top: 10px; border-radius: 8px; border: 1px solid #eee; }
-        table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 450px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 480px; }
+        th, td { border: 1px solid #ddd; padding: 10px 8px; text-align: left; }
         th { background: #eee; }
 
         @media print {
@@ -145,7 +164,7 @@
     </button>
     <div class="content-admin no-print">
         <div class="flex-group">
-            <input type="text" id="nuevoNombre" placeholder="Añadir nuevo nombre...">
+            <input type="text" id="nuevoNombre" placeholder="Nombre completo...">
             <button onclick="agregarPaciente()" style="background:var(--blue); color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">+</button>
         </div>
         <div id="gestionLista"></div>
@@ -182,6 +201,7 @@
 
     <div class="historial-section">
         <h3>Historial Registrado</h3>
+        <label class="no-print" style="font-size: 11px; color: var(--gray); margin-bottom: 2px;">Filtrar por fecha:</label>
         <input type="date" id="filtro" onchange="renderTabla()" class="no-print" style="margin-bottom:10px;">
         
         <button onclick="window.print()" class="no-print" style="width:100%; padding:12px; cursor:pointer; background: var(--gray); color:white; border:none; border-radius:8px; font-weight:bold;">🖨️ Imprimir Reporte</button>
@@ -209,7 +229,6 @@
 </div>
 
 <script>
-    // MANEJO DEL ACORDEÓN
     const coll = document.querySelector(".collapsible");
     coll.addEventListener("click", function() {
         this.classList.toggle("active");
@@ -248,13 +267,13 @@
             pacientes = pacientes.filter(p => p !== nombre);
             localStorage.setItem('pacientes_lista', JSON.stringify(pacientes));
             renderGestion();
-            renderPacientes(""); // Limpia la lista de selección si se borra alguien
+            renderPacientes("");
         }
     }
 
     function init() {
         renderABC();
-        renderPacientes(""); // Se inicia vacío por defecto
+        renderPacientes(""); 
         renderGestion();
         renderTabla();
     }
@@ -278,10 +297,7 @@
     function renderPacientes(letra) {
         const box = document.getElementById('listaPacientes');
         box.innerHTML = "";
-        
-        // Si no hay letra seleccionada, no mostramos nada (lista vacía)
         if(!letra) return;
-
         const lista = pacientes.filter(p => p.toUpperCase().startsWith(letra));
         lista.forEach(p => {
             const div = document.createElement('div');
@@ -343,7 +359,7 @@
     }
 
     function borrarLog(id) {
-        if(confirm("¿Borrar este registro del historial?")) {
+        if(confirm("¿Borrar este registro?")) {
             logs = logs.filter(l => l.id !== id);
             localStorage.setItem('logs_enfermeria', JSON.stringify(logs));
             renderTabla();
@@ -362,7 +378,7 @@
                 <td>${l.depo}</td>
                 <td>${l.mic}</td>
                 <td style="max-width: 120px; overflow-wrap: break-word;">${l.obs}</td>
-                <td class="no-print"><button onclick="borrarLog(${l.id})" style="border:none; background:none; color:var(--red); cursor:pointer;">✕</button></td>
+                <td class="no-print"><button onclick="borrarLog(${l.id})" style="border:none; background:none; color:var(--red); cursor:pointer; font-size:16px;">✕</button></td>
             </tr>`;
         });
     }
