@@ -315,5 +315,18 @@
         document.getElementById("arrow").innerText = content.style.maxHeight ? "▲" : "▼";
     };
 </script>
+
+<script>
+  // Registro del Service Worker para funcionamiento Offline
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').then(reg => {
+        console.log('Atenció Focal lista para uso offline.');
+      }).catch(err => {
+        console.log('Error al registrar el asistente offline', err);
+      });
+    });
+  }
+</script>
 </body>
 </html>

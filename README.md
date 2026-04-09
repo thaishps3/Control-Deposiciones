@@ -53,3 +53,6 @@ Para usarla como una App sin ver la barra del navegador:
 - **Diseño:** Responsive & Mobile-First.
 - **Autor:** Thais Perruolo © 2026
 - **Código:** Generado por Gemini.
+
+**Service Worker**
+Para que la aplicación funcione sin internet (offline) incluso después de cerrar el navegador o reiniciar el móvil, se añade un archivo técnico llamado Service Worker. Es como un "asistente" que vive dentro del móvil. La primera vez que abres la app, este asistente hace una copia de seguridad de los archivos (index.html, estilos, etc.). Cuando te desconectas, el asistente entrega esa copia local en lugar de intentar buscarla en GitHub.
