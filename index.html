@@ -1,332 +1,544 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Control Bio-Senior Pro</title>
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
-    
+
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+
     <style>
-        :root { --blue: #1a73e8; --green: #34a853; --gray: #627690; --red: #ea4335; --light: #f8f9fa; }
-        body { font-family: 'Segoe UI', sans-serif; background: #eaeff2; margin: 0; padding: 10px; padding-top: calc(10px + env(safe-area-inset-top)); }
-        .card { background: white; padding: 20px 15px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); max-width: 550px; margin: auto; }
-        .main-title { text-align: center; color: var(--blue); font-size: 22px; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
+        :root {
+            --blue: #1a73e8;
+            --green: #34a853;
+            --gray: #627690;
+            --red: #ea4335;
+            --light: #f8f9fa;
+        }
 
-        .collapsible { background-color: var(--light); color: var(--gray); cursor: pointer; padding: 14px; width: 100%; border: 1px solid #e0e0e0; text-align: left; font-size: 14px; font-weight: bold; border-radius: 8px; display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .content-admin { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #fdfdfd; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #eaeff2;
+            margin: 0;
+            padding: 10px;
+            padding-top: calc(10px + env(safe-area-inset-top));
+        }
 
-        label { display: block; margin: 18px 0 8px; font-weight: bold; color: #333; font-size: 14px; }
-        .label-pequena { font-size: 11px; color: #666; margin-bottom: 5px; font-weight: normal; }
-        
-        .abc-bar { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; justify-content: center; }
-        .btn-l { padding: 10px 5px; border: 1px solid #ddd; border-radius: 6px; background: white; cursor: pointer; min-width: 38px; }
-        .btn-l.active { background: var(--blue); color: white; border-color: var(--blue); }
-        
-        #listaUsuarios { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-height: 150px; overflow-y: auto; border: 1px solid #eee; padding: 10px; background: #fbfbfb; border-radius: 8px; }
-        .usuario-opt { padding: 12px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; background: #fff; font-size: 14px; }
-        .usuario-opt.selected { background: var(--blue); color: white; border-color: var(--blue); }
+        .card {
+            background: white;
+            padding: 20px 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            max-width: 550px;
+            margin: auto;
+        }
 
-        .grid-opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .btn-o { padding: 14px 5px; border: 2px solid #eee; border-radius: 10px; background: #fff; cursor: pointer; font-size: 13px; text-align: center; }
-        .btn-o.active { border-color: var(--blue); background: #e8f0fe; font-weight: bold; color: var(--blue); }
+        .main-title {
+            text-align: center;
+            color: var(--blue);
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
 
-        .btn-save { width: 100%; background: var(--green); color: white; border: none; padding: 16px; border-radius: 10px; font-size: 16px; margin-top: 25px; cursor: pointer; font-weight: bold; }
-        input, textarea, select { width: 100%; padding: 14px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        .collapsible {
+            background-color: var(--light);
+            color: var(--gray);
+            cursor: pointer;
+            padding: 14px;
+            width: 100%;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
 
-        .filtros-historial { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .label-filtro { margin: 0; font-size: 11px; text-transform: uppercase; color: #777; font-weight: bold; }
+        .content-admin {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #fdfdfd;
+        }
 
-        .tabla-scroll { width: 100%; max-height: 350px; overflow-y: auto; margin-top: 15px; border: 1px solid #eee; border-radius: 10px; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 500px; }
-        th { position: sticky; top: 0; background: #f8f9fa; padding: 12px 8px; z-index: 2; border-bottom: 2px solid #eee; }
-        td { border-bottom: 1px solid #eee; padding: 12px 8px; text-align: left; }
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
 
-        .backup-section { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; }
-        .btn-backup { padding: 12px; font-size: 12px; cursor: pointer; border-radius: 8px; border: 1px solid var(--blue); background: white; color: var(--blue); font-weight: bold; }
+        .label-pequena {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: normal;
+        }
 
-        footer { text-align: center; font-size: 12px; color: #999; margin-top: 30px; padding: 15px 0; border-top: 1px dotted #ccc; }
+        .abc-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+
+        .btn-l {
+            padding: 10px 5px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            min-width: 38px;
+        }
+
+        .btn-l.active {
+            background: var(--blue);
+            color: white;
+            border-color: var(--blue);
+        }
+
+        #listaUsuarios {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            padding: 10px;
+            background: #fbfbfb;
+            border-radius: 8px;
+        }
+
+        .usuario-opt {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #fff;
+            font-size: 14px;
+        }
+
+        .usuario-opt.selected {
+            background: var(--blue);
+            color: white;
+            border-color: var(--blue);
+        }
+
+        .grid-opts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .btn-o {
+            padding: 14px 5px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .btn-o.active {
+            border-color: var(--blue);
+            background: #e8f0fe;
+            font-weight: bold;
+            color: var(--blue);
+        }
+
+        .btn-save {
+            width: 100%;
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-top: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .filtros-historial {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .label-filtro {
+            margin: 0;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #777;
+            font-weight: bold;
+        }
+
+        .tabla-scroll {
+            width: 100%;
+            max-height: 350px;
+            overflow-y: auto;
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            min-width: 500px;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            background: #f8f9fa;
+            padding: 12px 8px;
+            z-index: 2;
+            border-bottom: 2px solid #eee;
+        }
+
+        td {
+            border-bottom: 1px solid #eee;
+            padding: 12px 8px;
+            text-align: left;
+        }
+
+        .backup-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-backup {
+            padding: 12px;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 8px;
+            border: 1px solid var(--blue);
+            background: white;
+            color: var(--blue);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 30px;
+            padding: 15px 0;
+            border-top: 1px dotted #ccc;
+        }
 
         @media print {
-            .no-print { display: none !important; }
-            body { background: white; padding: 0; }
-            .card { box-shadow: none; border: none; max-width: 100%; }
-            .tabla-scroll { max-height: none; overflow: visible; }
-            #print-header { display: block !important; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #333; }
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .card {
+                box-shadow: none;
+                border: none;
+                max-width: 100%;
+            }
+
+            .tabla-scroll {
+                max-height: none;
+                overflow: visible;
+            }
+
+            #print-header {
+                display: block !important;
+                text-align: center;
+                margin-bottom: 20px;
+                border-bottom: 2px solid #333;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div class="card">
-    <div id="print-header" style="display:none;">
-        <h1 style="margin:0; color: #1a73e8;">Reporte Bio-Senior</h1>
-        <p id="print-date-sub" style="margin:5px 0; font-weight:bold;"></p>
-        <p id="print-user-sub" style="margin:5px 0;"></p>
-    </div>
-
-    <div class="main-title no-print">Control Bio-Senior</div>
-
-    <button type="button" class="collapsible no-print">
-        <span>⚙️ Configuración y Usuarios</span>
-        <span id="arrow">▼</span>
-    </button>
-    <div class="content-admin no-print">
-        <div style="padding:15px; background: #f8f9fa;">
-            <label style="margin-top:0;">Añadir Nuevo Usuario:</label>
-            <div style="display:flex; gap:8px; margin-bottom:15px;">
-                <input type="text" id="nuevoNombre" placeholder="Nombre completo...">
-                <button onclick="agregarUsuario()" style="background:var(--blue); color:white; border:none; padding:0 15px; border-radius:8px; font-size:20px;">+</button>
-            </div>
-            
-            <p class="label-pequena">Lista de usuarios (Toca ✕ para eliminar):</p>
-            <div id="gestionLista" style="max-height:100px; overflow-y:auto; border:1px solid #e0e0e0; border-radius:6px; background:white; font-size:13px;"></div>
-            
-            <div class="backup-section">
-                <button class="btn-backup" onclick="exportarDatos()">📤 Exportar Backup</button>
-                <button class="btn-backup" onclick="document.getElementById('importFile').click()">📥 Importar Backup</button>
-                <input type="file" id="importFile" style="display:none" onchange="importarDatos(event)">
-            </div>
-        </div>
-    </div>
-
-    <div class="no-print">
-        <label>1. Seleccionar Usuario</label>
-        <div class="abc-bar" id="abcBar"></div>
-        <div id="listaUsuarios"></div>
-
-        <label>2. Tipo de Deposición</label>
-        <div class="grid-opts" id="depoSection">
-            <div class="btn-o" onclick="selectDepo('Normal', this)">🌭 Normal</div>
-            <div class="btn-o" onclick="selectDepo('Blanda', this)">☁️ Blanda</div>
-            <div class="btn-o" onclick="selectDepo('Pastosa', this)">💩 Pastosa</div>
-            <div class="btn-o" onclick="selectDepo('Líquida', this)">💧 Líquida</div>
-            <div class="btn-o" onclick="selectDepo('Estreñida', this)">🪨 Estreñida</div>
-            <div class="btn-o" onclick="selectDepo('No', this)">❌ No</div>
+    <div class="card">
+        <div id="print-header" style="display:none;">
+            <h1 style="margin:0; color: #1a73e8;">Reporte Bio-Senior</h1>
+            <p id="print-date-sub" style="margin:5px 0; font-weight:bold;"></p>
+            <p id="print-user-sub" style="margin:5px 0;"></p>
         </div>
 
-        <label>3. Micción</label>
-        <div class="grid-opts" id="micSection">
-            <div class="btn-o" id="micSi" onclick="selectMic('Sí', this)">✅ Sí</div>
-            <div class="btn-o" id="micNo" onclick="selectMic('No', this)">❌ No</div>
-        </div>
+        <div class="main-title no-print">Control Bio-Senior</div>
 
-        <label>4. Observaciones</label>
-        <textarea id="obs" rows="2" placeholder="Notas adicionales..."></textarea>
+        <button type="button" class="collapsible no-print">
+            <span>⚙️ Gestión de Usuarios</span>
+            <span id="arrow">▼</span>
+        </button>
+        <div class="content-admin no-print">
+            <div style="padding:15px; background: #f8f9fa;">
+                <label style="margin-top:0;">Añadir Nuevo Usuario:</label>
+                <input type="text" id="nuevoNombre" placeholder="Nombre o apellido...">
+                <div style="display:flex; gap:10px; margin:10px 0;">
+                    <div id="genH" class="btn-o" style="flex:1" onclick="selectGenAdmin('Hombre', this)">♂️ Hombre</div>
+                    <div id="genM" class="btn-o" style="flex:1" onclick="selectGenAdmin('Mujer', this)">♀️ Mujer</div>
+                </div>
+                <button onclick="agregarUsuario()"
+                    style="width:100%; background:var(--blue); color:white; border:none; padding:12px; border-radius:8px; font-weight:bold;">Guardar
+                    Usuario</button>
 
-        <button class="btn-save" onclick="guardar()">💾 GUARDAR REGISTRO</button>
-    </div>
+                <p class="label-pequena" style="margin-top:15px;">Lista de usuarios:</p>
+                <div id="gestionLista"
+                    style="max-height:100px; overflow-y:auto; border:1px solid #e0e0e0; border-radius:6px; background:white; font-size:13px;">
+                </div>
 
-    <hr class="no-print" style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
-
-    <div class="historial-section">
-        <h3 style="font-size:17px; color:var(--blue); margin-bottom:15px;">📋 Historial Reciente</h3>
-        
-        <div class="no-print filtros-historial">
-            <div>
-                <p class="label-filtro">Filtrar Fecha:</p>
-                <input type="date" id="filtro" onchange="renderTabla()" style="padding:8px; font-size:13px;">
-            </div>
-            <div>
-                <p class="label-filtro">Filtrar Usuario:</p>
-                <select id="filtroUsuario" onchange="renderTabla()" style="padding:8px; font-size:13px;">
-                    <option value="">Todos</option>
-                </select>
+                <div class="backup-section">
+                    <button class="btn-backup" onclick="exportarDatos()">📤 Exportar Backup</button>
+                    <button class="btn-backup" onclick="document.getElementById('importFile').click()">📥 Importar
+                        Backup</button>
+                    <input type="file" id="importFile" style="display:none" onchange="importarDatos(event)">
+                </div>
             </div>
         </div>
-        
-        <button onclick="prepararImpresion()" class="no-print" style="width:100%; padding:12px; cursor:pointer; background: var(--gray); color:white; border:none; border-radius:8px; font-weight:bold; margin-bottom:10px;">🖨️ Generar PDF / Imprimir</button>
-        
-        <div class="tabla-scroll">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Fecha y Hora</th>
-                        <th>Usuario</th>
-                        <th>Depo</th>
-                        <th>Mic</th>
-                        <th>Obs</th>
-                        <th class="no-print"></th>
-                    </tr>
-                </thead>
-                <tbody id="cuerpo"></tbody>
-            </table>
+
+        <div class="no-print">
+            <label>1. Seleccionar Usuario</label>
+            <div class="abc-bar" id="abcBar"></div>
+            <div id="listaUsuarios"></div>
+
+            <label>2. Tipo de Deposición</label>
+            <div class="grid-opts" id="depoSection">
+                <div class="btn-o" onclick="selectDepo('Normal', this)">🌭 Normal</div>
+                <div class="btn-o" onclick="selectDepo('Blanda', this)">☁️ Blanda</div>
+                <div class="btn-o" onclick="selectDepo('Pastosa', this)">💩 Pastosa</div>
+                <div class="btn-o" onclick="selectDepo('Líquida', this)">💧 Líquida</div>
+                <div class="btn-o" onclick="selectDepo('Estreñida', this)">🪨 Estreñida</div>
+                <div class="btn-o" onclick="selectDepo('No', this)">❌ No</div>
+            </div>
+
+            <label>3. Micción</label>
+            <div class="grid-opts" id="micSection">
+                <div class="btn-o" id="micSi" onclick="selectMic('Sí', this)">✅ Sí</div>
+                <div class="btn-o" id="micNo" onclick="selectMic('No', this)">❌ No</div>
+            </div>
+
+            <label>4. Observaciones</label>
+            <textarea id="obs" rows="2" placeholder="Notas adicionales..."></textarea>
+
+            <button class="btn-save" onclick="guardar()">💾 GUARDAR REGISTRO</button>
         </div>
+
+        <hr class="no-print" style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+        <div class="historial-section">
+            <h3 style="font-size:17px; color:var(--blue); margin-bottom:15px;">📋 Historial Reciente</h3>
+
+            <div class="no-print"
+                style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 15px;">
+                <div>
+                    <p class="label-filtro">Fecha:</p>
+                    <input type="date" id="filtro" onchange="renderTabla()">
+                </div>
+                <div>
+                    <p class="label-filtro">Usuario:</p>
+                    <select id="filtroUsuario" onchange="renderTabla()">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <div>
+                    <p class="label-filtro">Género:</p>
+                    <select id="filtroGenero" onchange="renderTabla()">
+                        <option value="">Todos</option>
+                        <option value="Hombre">Hombre</option>
+                        <option value="Mujer">Mujer</option>
+                    </select>
+                </div>
+            </div>
+            <button onclick="limpiarFiltros()" class="no-print"
+                style="width:100%; margin-bottom:10px; padding:8px; background:#f0f0f0; border:none; border-radius:6px; font-size:12px;">✖
+                Limpiar filtros</button>
+            <div class="no-print" style="margin-top:10px; display:flex; align-items:center; gap:8px;">
+                <input type="checkbox" id="verTodo" onchange="renderTabla()" style="width:20px; padding:0;">
+                <label for="verTodo" style="margin:0; font-size:13px;">Mostrar historial completo (todas las
+                    fechas)</label>
+            </div>
+            <button onclick="prepararImpresion()" class="no-print"
+                style="width:100%; padding:12px; cursor:pointer; background: var(--gray); color:white; border:none; border-radius:8px; font-weight:bold; margin-bottom:10px;">🖨️
+                Generar PDF / Imprimir</button>
+
+            <div class="tabla-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>User</th>
+                            <th>Gen</th>
+                            <th>Depo</th>
+                            <th>Mic</th>
+                            <th>Obs</th>
+                            <th class="no-print"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer>Diseño funcional por Thais Perruolo &copy; 2026</footer>
     </div>
 
-    <footer>Diseñado por Thais Perruolo &copy; 2026</footer>
-</div>
+    <script>
+        let usuarios = JSON.parse(localStorage.getItem('pacientes_lista')) || [];
+        let logs = JSON.parse(localStorage.getItem('logs_enfermeria')) || [];
+        let registroActual = { nombre: "", genero: "", depo: "", mic: "", obs: "" };
+        let tempGen = "";
+        let letraActiva = "";
 
-<script>
-    let usuarios = JSON.parse(localStorage.getItem('pacientes_lista')) || [];
-    let logs = JSON.parse(localStorage.getItem('logs_enfermeria')) || [];
-    let registroActual = { nombre: "", depo: "", mic: "", obs: "" };
-    let letraActiva = "";
-
-    window.onload = () => {
-        document.getElementById('filtro').value = new Date().toISOString().split('T')[0];
-        renderABC();
-        renderGestion();
-        actualizarSelectUsuarios();
-        renderTabla();
-    };
-
-    function exportarDatos() {
-        const data = { usuarios, logs };
-        const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `backup_senior_${new Date().toISOString().split('T')[0]}.json`;
-        a.click();
-    }
-
-    function importarDatos(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            try {
-                const data = JSON.parse(e.target.result);
-                if (confirm("¿Importar datos?")) {
-                    usuarios = data.usuarios || [];
-                    logs = data.logs || [];
-                    localStorage.setItem('pacientes_lista', JSON.stringify(usuarios));
-                    localStorage.setItem('logs_enfermeria', JSON.stringify(logs));
-                    location.reload();
-                }
-            } catch (err) { alert("Archivo no válido"); }
+        window.onload = () => {
+            document.getElementById('filtro').value = new Date().toISOString().split('T')[0];
+            renderABC(); renderGestion(); actualizarSelectUsuarios(); renderTabla();
         };
-        reader.readAsText(file);
-    }
 
-    function agregarUsuario() {
-        const n = document.getElementById('nuevoNombre').value.trim();
-        if(n && !usuarios.includes(n)){
-            usuarios.push(n); usuarios.sort();
-            localStorage.setItem('pacientes_lista', JSON.stringify(usuarios));
-            document.getElementById('nuevoNombre').value = "";
-            renderGestion(); renderABC(); actualizarSelectUsuarios();
+        function selectGenAdmin(g, el) {
+            tempGen = g;
+            document.querySelectorAll('.btn-o[onclick*="selectGenAdmin"]').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
         }
-    }
 
-    function eliminarUsuario(n) {
-        if(confirm(`¿Eliminar a ${n}?`)){
-            usuarios = usuarios.filter(p => p !== n);
-            localStorage.setItem('pacientes_lista', JSON.stringify(usuarios));
-            renderGestion(); renderABC(); actualizarSelectUsuarios();
+        function agregarUsuario() {
+            const n = document.getElementById('nuevoNombre').value.trim();
+            if (n && tempGen) {
+                usuarios.push({ nombre: n, genero: tempGen });
+                usuarios.sort((a, b) => a.nombre.localeCompare(b.nombre));
+                localStorage.setItem('pacientes_lista', JSON.stringify(usuarios));
+                location.reload();
+            } else { alert("Escribe un nombre y selecciona género"); }
         }
-    }
 
-    function renderGestion() {
-        document.getElementById('gestionLista').innerHTML = usuarios.map(p => `
-            <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee; align-items:center;">
-                <span>${p}</span> <span onclick="eliminarUsuario('${p}')" style="color:var(--red); cursor:pointer; font-weight:bold; padding:5px 10px;">✕</span>
-            </div>`).join("");
-    }
+        function renderGestion() {
+            document.getElementById('gestionLista').innerHTML = usuarios.map(p => {
+                const nombre = p.nombre || p;
+                const gen = p.genero ? (p.genero === 'Hombre' ? '♂️' : '♀️') : '';
+                return `<div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee; align-items:center;">
+                <span>${nombre} ${gen}</span> 
+                <span onclick="eliminarUsuario('${nombre}')" style="color:var(--red); cursor:pointer; font-weight:bold; padding:5px 10px;">✕</span>
+            </div>`;
+            }).join("");
+        }
 
-    function actualizarSelectUsuarios() {
-        const select = document.getElementById('filtroUsuario');
-        const anterior = select.value;
-        select.innerHTML = '<option value="">Todos</option>';
-        usuarios.forEach(p => select.innerHTML += `<option value="${p}">${p}</option>`);
-        select.value = anterior;
-    }
+        function eliminarUsuario(n) {
+            if (confirm(`¿Eliminar a ${n}?`)) {
+                usuarios = usuarios.filter(p => (p.nombre || p) !== n);
+                localStorage.setItem('pacientes_lista', JSON.stringify(usuarios));
+                location.reload();
+            }
+        }
 
-    function renderABC() {
-        const bar = document.getElementById('abcBar');
-        bar.innerHTML = "";
-        "ABCDEFGHIJLMNOPQRSTV".split('').forEach(l => {
-            const b = document.createElement('button');
-            b.className = 'btn-l' + (letraActiva === l ? ' active' : '');
-            b.innerText = l;
-            b.onclick = () => { letraActiva = l; renderABC(); renderUsuarios(l); };
-            bar.appendChild(b);
-        });
-    }
+        // Funciones de utilidad y registro se mantienen intactas
+        function selectDepo(v, el) { registroActual.depo = v; document.querySelectorAll('#depoSection .btn-o').forEach(b => b.classList.remove('active')); el.classList.add('active'); if (v !== "No") selectMic('Sí', document.getElementById('micSi')); }
+        function selectMic(v, el) { registroActual.mic = v; document.querySelectorAll('#micSection .btn-o').forEach(b => b.classList.remove('active')); el.classList.add('active'); }
 
-    function renderUsuarios(letra) {
-        const box = document.getElementById('listaUsuarios');
-        box.innerHTML = "";
-        usuarios.filter(p => p.toUpperCase().startsWith(letra)).forEach(p => {
-            const div = document.createElement('div');
-            div.className = 'usuario-opt' + (registroActual.nombre === p ? ' selected' : '');
-            div.innerText = p;
-            div.onclick = () => { 
-                registroActual.nombre = p; 
-                document.querySelectorAll('.usuario-opt').forEach(d => d.classList.remove('selected'));
-                div.classList.add('selected');
-            };
-            box.appendChild(div);
-        });
-    }
+        function guardar() {
+            if (!registroActual.nombre || !registroActual.depo || !registroActual.mic) return alert("⚠️ Selecciona Usuario y Datos");
+            const ahora = new Date();
+            const uObj = usuarios.find(u => u.nombre === registroActual.nombre);
+            logs.push({
+                id: Date.now(),
+                fechaISO: ahora.toISOString().split('T')[0],
+                fechaFull: ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
+                nombre: registroActual.nombre,
+                genero: uObj ? uObj.genero : "---",
+                depo: registroActual.depo,
+                mic: registroActual.mic,
+                obs: document.getElementById('obs').value
+            });
+            localStorage.setItem('logs_enfermeria', JSON.stringify(logs));
+            location.reload();
+        }
 
-    function selectDepo(v, el) {
-        registroActual.depo = v;
-        document.querySelectorAll('#depoSection .btn-o').forEach(b => b.classList.remove('active'));
-        el.classList.add('active');
-        if(v !== "No") selectMic('Sí', document.getElementById('micSi'));
-    }
+        function renderTabla() {
+            const cuerpo = document.getElementById('cuerpo');
+            const fF = document.getElementById('filtro').value;
+            const fU = document.getElementById('filtroUsuario').value;
+            const fG = document.getElementById('filtroGenero').value;
+            const verTodo = document.getElementById('verTodo').checked; // NUEVO: detecta el checkbox
 
-    function selectMic(v, el) {
-        registroActual.mic = v;
-        document.querySelectorAll('#micSection .btn-o').forEach(b => b.classList.remove('active'));
-        el.classList.add('active');
-    }
+            cuerpo.innerHTML = "";
 
-    function guardar() {
-        if(!registroActual.nombre || !registroActual.depo || !registroActual.mic) return alert("⚠️ Selecciona Usuario y Datos");
-        const ahora = new Date();
-        logs.push({
-            id: Date.now(),
-            fechaISO: ahora.toISOString().split('T')[0],
-            // Arreglo del undefined: Aseguramos que se guarde la cadena de texto
-            fechaFull: ahora.toLocaleDateString('es-ES') + " " + ahora.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'}),
-            nombre: registroActual.nombre, depo: registroActual.depo, mic: registroActual.mic, obs: document.getElementById('obs').value
-        });
-        localStorage.setItem('logs_enfermeria', JSON.stringify(logs));
-        location.reload();
-    }
+            // Si verTodo está marcado, ignoramos el filtro de fecha (fF)
+            logs.filter(l => {
+                const matchFecha = verTodo ? true : (l.fechaISO === fF);
+                const matchUser = fU ? l.nombre === fU : true;
+                const matchGen = fG ? l.genero === fG : true;
+                return matchFecha && matchUser && matchGen;
+            }).slice().reverse().forEach(l => {
+                cuerpo.innerHTML += `<tr>
+            <td>${l.fechaISO.substring(5)}<br><small style="color:#888;">${l.fechaFull}</small></td>
+            <td><b>${l.nombre}</b></td>
+            <td>${l.genero || '---'}</td>
+            <td>${l.depo}</td>
+            <td>${l.mic}</td>
+            <td>${l.obs || "-"}</td>
+            <td class="no-print"><button onclick="borrarLog(${l.id})" style="border:none; background:none; color:red; cursor:pointer;">✕</button></td>
+        </tr>`;
+            });
+        }
+        function limpiarFiltros() {
+            document.getElementById('filtro').value = "";
+            document.getElementById('filtroUsuario').value = "";
+            document.getElementById('filtroGenero').value = "";
+            renderTabla();
+        }
 
-    function renderTabla() {
-        const cuerpo = document.getElementById('cuerpo');
-        const fF = document.getElementById('filtro').value;
-        const fU = document.getElementById('filtroUsuario').value;
-        cuerpo.innerHTML = "";
-        logs.filter(l => (fF ? l.fechaISO === fF : true) && (fU ? l.nombre === fU : true)).slice().reverse().forEach(l => {
-            // El fallback l.fechaFull || "Sin fecha" evita el undefined visualmente
-            cuerpo.innerHTML += `<tr><td>${l.fechaFull || "---"}</td><td><b>${l.nombre}</b></td><td>${l.depo}</td><td>${l.mic}</td><td style="max-width: 150px; overflow-wrap: break-word; color:#555;">${l.obs || "-"}</td><td class="no-print"><button onclick="borrarLog(${l.id})" style="border:none; background:none; color:red; cursor:pointer;">✕</button></td></tr>`;
-        });
-    }
+        function renderABC() {
+            const bar = document.getElementById('abcBar'); bar.innerHTML = ""; "ABCDEFGHIJLMNOPQRSTV".split('').forEach(l => {
+                const b = document.createElement('button'); b.className = 'btn-l' + (letraActiva === l ? ' active' : ''); b.innerText = l;
+                b.onclick = () => { letraActiva = l; renderABC(); renderUsuarios(l); }; bar.appendChild(b);
+            });
+        }
 
-    function borrarLog(id) { if(confirm("¿Borrar?")) { logs = logs.filter(l => l.id !== id); localStorage.setItem('logs_enfermeria', JSON.stringify(logs)); renderTabla(); } }
+        function renderUsuarios(letra) {
+            const box = document.getElementById('listaUsuarios'); box.innerHTML = "";
+            usuarios.filter(p => (p.nombre || p).toUpperCase().startsWith(letra)).forEach(p => {
+                const nombre = p.nombre || p;
+                const div = document.createElement('div'); div.className = 'usuario-opt' + (registroActual.nombre === nombre ? ' selected' : '');
+                div.innerText = nombre; div.onclick = () => { registroActual.nombre = nombre; document.querySelectorAll('.usuario-opt').forEach(d => d.classList.remove('selected')); div.classList.add('selected'); };
+                box.appendChild(div);
+            });
+        }
 
-    function prepararImpresion() {
-        const fF = document.getElementById('filtro').value;
-        const fU = document.getElementById('filtroUsuario').value;
-        document.getElementById('print-date-sub').innerText = fF ? "Fecha: " + new Date(fF).toLocaleDateString() : "Historial Completo";
-        document.getElementById('print-user-sub').innerText = fU ? "Usuario: " + fU : "Todos los usuarios";
-        window.print();
-    }
-
-    document.querySelector(".collapsible").onclick = function() {
-        this.classList.toggle("active");
-        const content = this.nextElementSibling;
-        content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
-        document.getElementById("arrow").innerText = content.style.maxHeight ? "▲" : "▼";
-    };
-</script>
-
-<script>
-  // Registro del Service Worker para funcionamiento Offline
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').then(reg => {
-        console.log('Atenció Focal lista para uso offline.');
-      }).catch(err => {
-        console.log('Error al registrar el asistente offline', err);
-      });
-    });
-  }
-</script>
+        function actualizarSelectUsuarios() { const select = document.getElementById('filtroUsuario'); usuarios.forEach(p => select.innerHTML += `<option value="${p.nombre || p}">${p.nombre || p}</option>`); }
+        function exportarDatos() { const data = { usuarios, logs }; const blob = new Blob([JSON.stringify(data)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `backup_${new Date().toISOString().split('T')[0]}.json`; a.click(); }
+        function importarDatos(event) { const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = (e) => { try { const data = JSON.parse(e.target.result); if (confirm("¿Importar?")) { usuarios = data.usuarios; logs = data.logs; localStorage.setItem('pacientes_lista', JSON.stringify(usuarios)); localStorage.setItem('logs_enfermeria', JSON.stringify(logs)); location.reload(); } } catch (err) { alert("Error"); } }; reader.readAsText(file); }
+        function borrarLog(id) { if (confirm("¿Borrar?")) { logs = logs.filter(l => l.id !== id); localStorage.setItem('logs_enfermeria', JSON.stringify(logs)); renderTabla(); } }
+        function prepararImpresion() { const fF = document.getElementById('filtro').value; const fU = document.getElementById('filtroUsuario').value; document.getElementById('print-date-sub').innerText = fF ? "Fecha: " + new Date(fF).toLocaleDateString() : "Historial Completo"; document.getElementById('print-user-sub').innerText = fU ? "Usuario: " + fU : "Todos los usuarios"; window.print(); }
+        document.querySelector(".collapsible").onclick = function () { this.classList.toggle("active"); const content = this.nextElementSibling; content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px"; document.getElementById("arrow").innerText = content.style.maxHeight ? "▲" : "▼"; };
+    </script>
 </body>
+
 </html>

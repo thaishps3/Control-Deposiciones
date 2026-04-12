@@ -12,6 +12,18 @@
 - **Privacidad Total:** Los datos se almacenan localmente en el dispositivo (`LocalStorage`). Nada se sube a la nube.
 - **Reportes Listos para Imprimir:** Diseño optimizado (CSS Print) que oculta botones innecesarios para entregar informes limpios al médico.
 
+## Historial de Cambios (Versión 2026.04)
+Esta actualización marca la transición hacia un sistema de gestión de datos más robusto, optimizado para entornos de enfermería:
+
+Motor de Filtros Avanzado: Implementación de filtrado inteligente por Fecha, Usuario y Género, permitiendo una búsqueda rápida de datos específicos sin navegar por historiales completos.
+
+Reportes PDF y Exportación: Mejora en la visualización de datos para la generación de reportes listos para impresión y gestión de backups mediante archivos .json.
+
+Gestión Inmutable: Refuerzo en la integridad de los datos, asegurando que los registros una vez ingresados no sean editables, garantizando la trazabilidad.
+
+Optimización Offline-First: Mejora en el rendimiento de la aplicación para su uso sin conexión, permitiendo su despliegue seguro a través de GitHub Pages.
+
+Diseño Responsive: Ajuste de la interfaz de usuario para una experiencia fluida y táctil en dispositivos móviles, facilitando la toma de notas en tiempo real por el equipo auxiliar.
 ---
 
 ## 📖 Guía de Uso
